@@ -262,17 +262,9 @@ void DynamicReduction(); //decreases size of the array when the size of a list b
 }
 
 #
-# Singly
+# Singly Linked Lists
 
-#
-
-# Linked
-
-#
-
-# Lists
-
-Theobjectiveofthislabsessionistoacquireskillsinworkingwithsinglylinkedlists. The task is to first implement the following operations:
+The objective of this lab session is to acquire skills in working with singly linked lists. The task is to first implement the following operations:
 
 1. Create an empty linked list; // do so in the constructor.
 2. bool IsEmpty(); // checks whether the list is empty or not. Returns true if empty and false otherwise.
