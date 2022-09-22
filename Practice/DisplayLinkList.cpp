@@ -18,12 +18,15 @@ void create(int A[],int n){
     last=first;
 
     for (i=1;i<n;i++){
+
         t=new Node();
         t->data=A[i];
         t->next=NULL;
         last->next=t;
         last=t;
+
     }
+
 }
 
 void Display(struct Node *p){

@@ -1,37 +1,7 @@
-selection sort code searches an array looking for the smallest element in the array. Then, the
-
-smallest element is swapped with the first element of the array. The process is repeated for the
-
-sub-array beginning with the second element of the array. Each pass of the array results in one
-
-element being placed in its proper location. When the sub-array being processed contains one
-
-element, the array is sorted. Write C++ code for this selection sort and output must be stored in
-
-"output.txt" file (having all passes
-
-selection sort code searches an array looking for the smallest element in the array. Then, the
-
-smallest element is swapped with the first element of the array. The process is repeated for the
-
-sub-array beginning with the second element of the array. Each pass of the array results in one
-
-element being placed in its proper location. When the sub-array being processed contains one
-
-element, the array is sorted. Write C++ code for this selection sort and output must be stored in
-
-"output.txt" file (having all passes
-
-#
 
 
-#
 
-
-#
-
-
-# Department of Computing
+#### Department of Computing
 
 **CS250: Data Structure and Algorithms**
 
