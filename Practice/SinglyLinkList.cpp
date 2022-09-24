@@ -83,19 +83,62 @@ int Rec_Add(struct Node *p){
     }
 }
 
+int Max(struct Node *p){
+    int max;
+    if(p!=NULL)
+         max=p->data;
+    while(p!=NULL){
+        
+        if (p->data >max ){
+            max=p->data;
+    }
+    p=p->next;
+}
+}
+
+int Rec_Max(struct Node *p)
+{
+    int x=INT32_MIN;
+    if(p==0) {return x;}
+    x=Rec_Max(p->next);
+    return x>p->data?x:p->data;
+
+}
+
+bool Search(struct Node *p,int key){
+    while(p!=NULL){
+        if(p->data==key){
+            return true;
+        }
+        p=p->next;
+    }
+    return false;
+}
+
+bool Rec_Search(struct Node *p, int key){
+    if (p==NULL){
+        return false;
+    }
+    if (key==p->data){
+        return true;   // ALL CALLS WILL REMOVE ONCE IT FINDS THE VALUE
+    }
+    return Rec_Search(p->next,key);
+}
 int main(){
-    int A[]={3,5,6,7,89};
+    int A[]={-888877,5,6,7,89};
     create(A,5);
-
+    // cout<<Search(first,89);
+    cout<<Rec_Search(first,90);
 //    Display(first);
-    DisplayRecursive(first);
-    cout<<"REVERSE ORDER "<<endl;
-    Rev_DisplayRecursive(first);
-    cout<<"COUNTING :"<<endl;
-    count(first);
+    // DisplayRecursive(first);
+    // cout<<"REVERSE ORDER "<<endl;
+    // Rev_DisplayRecursive(first);
+    // cout<<"COUNTING :"<<endl;
+    // count(first);
 
-    cout<<Rec_count(first)<<endl;
-    cout<<Add(first)<<endl;
-    cout<<Rec_Add(first)<<endl;
+    // cout<<Rec_count(first)<<endl;
+    // cout<<Add(first)<<endl;
+    // cout<<Rec_Add(first)<<endl;
+    // cout<<Rec_Max(first);
     return 0;
 }
