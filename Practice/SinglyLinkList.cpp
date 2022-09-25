@@ -49,13 +49,13 @@ void Rev_DisplayRecursive(struct Node *p){
 
     }
 }
-void count(struct Node *p){  // SPACE COMPLEXITY 1
+int count(struct Node *p){  // SPACE COMPLEXITY 1
     int c=0;                   // Time Complexity n
     while(p!=NULL){
         c++;
         p=p->next;
     }
-    cout<<c<<endl;
+    return c;
 }
 int Rec_count(struct Node *p){  // Time Taken n
     if(p==NULL){                // Space Complexity n+1
@@ -105,6 +105,23 @@ int Rec_Max(struct Node *p)
 
 }
 
+void Head_Node(struct Node *p,int key){
+    struct Node *q;
+        q=p;
+
+    while(p!=NULL){
+
+        if(p->data==key){
+            q->next=p->next;
+            p->next=first;
+            first=p;
+            cout<<"NODE CHANGED"<<endl;
+            break;
+    }
+        q=p;
+        p=p->next;
+    }
+}
 bool Search(struct Node *p,int key){
     while(p!=NULL){
         if(p->data==key){
@@ -113,6 +130,31 @@ bool Search(struct Node *p,int key){
         p=p->next;
     }
     return false;
+}
+
+void Insert(struct Node* p, int index,int value){
+    struct Node *t;
+    t=new Node();
+        t->data=value;
+
+    if (index<0 || index > (count(p))){
+        return;
+    }
+    if (index==0){
+        t->next=first;
+        first=t;
+    }
+    else{ 
+        for (int i=0;i<index-1;i++){
+            p=p->next;
+        }
+
+        t->next=p->next;
+        p->next=t;
+    
+
+        
+    }
 }
 
 bool Rec_Search(struct Node *p, int key){
@@ -128,7 +170,20 @@ int main(){
     int A[]={-888877,5,6,7,89};
     create(A,5);
     // cout<<Search(first,89);
-    cout<<Rec_Search(first,90);
+    // cout<<Rec_Search(first,90);
+    // Head_Node(first,7);
+    // Insert(first,-2,99);
+    Insert(first,0,90);
+    // Insert(first,99,97);
+    Insert(first,5,95);
+    Insert(first,count(first),91);
+
+    Display(first);
+
+
+
+
+    // Display(first);
 //    Display(first);
     // DisplayRecursive(first);
     // cout<<"REVERSE ORDER "<<endl;
