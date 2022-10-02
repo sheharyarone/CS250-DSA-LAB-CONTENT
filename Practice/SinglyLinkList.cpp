@@ -166,19 +166,60 @@ bool Rec_Search(struct Node *p, int key){
     }
     return Rec_Search(p->next,key);
 }
+
+void removeDuplicSorted(struct Node *p){
+    // SUPPOSING THAT LIST IS SORTED 
+    struct Node *q;
+        q=p;
+        p=p->next;
+    while(p){
+        if (!(p->data==q->data)){
+            q=p;
+            p=p->next;
+        }
+        else{
+            q->next=p->next;
+            delete p;
+            p=q->next;
+        }
+
+    }
+}
+void reverse(){
+    struct Node *p,*q,*r;
+    p=first;
+    q=NULL;
+    r=NULL;
+    while(p!=NULL){
+        cout<<"F"<<endl;
+        r=q;
+        q=p;
+        p=p->next;
+        q->next=r;
+    }
+
+
+}
 int main(){
-    int A[]={-888877,5,6,7,89};
-    create(A,5);
+    int A[]={1,2,3,4,5,6};
+
+    create(A,sizeof(A)/sizeof(int));
+    Display(first);
+    reverse();
+    Display(first);
+    // removeDuplicSorted(first);
+    // cout<<"AFTER REMOVE DUPLICATE :"<<endl;
+    // Display(first);
+
     // cout<<Search(first,89);
     // cout<<Rec_Search(first,90);
     // Head_Node(first,7);
     // Insert(first,-2,99);
-    Insert(first,0,90);
+    // Insert(first,0,90);
     // Insert(first,99,97);
-    Insert(first,5,95);
-    Insert(first,count(first),91);
+    // Insert(first,5,95);
+    // Insert(first,count(first),91);
 
-    Display(first);
 
 
 
