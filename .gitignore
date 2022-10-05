@@ -3,5 +3,6 @@ CMakeLists.txt
 cmake-build-debug
 *.json
 *.vscode
+build
 
 
