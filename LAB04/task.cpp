@@ -159,19 +159,22 @@ void CLL::Delete(int data)
     }
     else
     {
-        cout<<"VALUE DOESN'T EXIST"<<endl;
+        cout << "VALUE DOESN'T EXIST" << endl;
     }
 }
-void CLL::DestroyList(){
-    if(!isEmpty()){
-        Node*temp;
-        while(list!=list->next){
-            temp=list->next;
-            list->next=temp->next;
+void CLL::DestroyList()
+{
+    if (!isEmpty())
+    {
+        Node *temp;
+        while (list != list->next)
+        {
+            temp = list->next;
+            list->next = temp->next;
             delete temp;
         }
         delete list;
-        list=NULL;
+        list = NULL;
     }
 }
 int main()
