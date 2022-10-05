@@ -26,6 +26,7 @@ class CLL
     void Search(int);
     void insertedSorted(int);
     void Delete(int);
+    void DestroyList();
 };
 bool CLL ::isEmpty()
 {
@@ -159,6 +160,18 @@ void CLL::Delete(int data)
     else
     {
         cout<<"VALUE DOESN'T EXIST"<<endl;
+    }
+}
+void CLL::DestroyList(){
+    if(!isEmpty()){
+        Node*temp;
+        while(list!=list->next){
+            temp=list->next;
+            list->next=temp->next;
+            delete temp;
+        }
+        delete list;
+        list=NULL;
     }
 }
 int main()
