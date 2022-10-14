@@ -55,18 +55,22 @@ public:
 };
 bool charCheck(char s)
 {
-    string f="[{()}]";
-    for (int i=0;f.length()>i;i++){
-        if (f[i]==s){
+    string f = "[{()}]";
+    for (int i = 0; f.length() > i; i++)
+    {
+        if (f[i] == s)
+        {
             return true;
         }
     }
     return false;
 }
-bool bracketCheck(string toCheck){
 
+
+int main()
+{
     stack b;
-
+    string toCheck = "(){([])}";
     for (int i = 0; toCheck.length() > i; i++)
     {
         if (charCheck(toCheck[i]))
@@ -74,43 +78,54 @@ bool bracketCheck(string toCheck){
             if (b.isEmpty())
             {
                 b.Push(toCheck[i]);
+                cout<<"push"<<toCheck[i]<<endl;
             }
             else if (
-                (b.Top() == '{') && (toCheck[i] == '}') ||
-                (b.Top() == '(') && (toCheck[i] == ')') ||
-                (b.Top() == '[') && (toCheck[i] == ']')
+                ((b.Top() == '{') && (toCheck[i] == '}'))
 
             )
             {
-                b.Pop();
+                cout<<"1st"<<endl;
+                cout<<"pop";
+                cout<<b.Pop()<<endl;
+            }
+            else if (
+                ((b.Top() == '[') && (toCheck[i] == ']'))
+
+            )
+            {
+                cout<<"2nd"<<endl;
+
+                cout<<"pop";
+                                cout<<b.Pop()<<endl;
+
+            }
+            else if (((b.Top() == '(') && (toCheck[i] == ')')))
+            {
+                cout<<"3rd"<<endl;
+
+                cout<<"pop";
+
+                cout<<b.Pop()<<endl;
+
             }
             else
             {
                 b.Push(toCheck[i]);
+                cout<<"PUSH IN LAST ELSE"<<endl;
             }
         }
     }
-        if (b.isEmpty())
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
- 
-}
 
-
-
-int main()
-{
-    if(bracketCheck("(1 + 2 * [3 * 3)( + {4 – 5 (6 (7/8/9) +)( 10)} – 11 + (12*8) / {13 +13}] + 14)")){
-        cout<<"BALANCED"<<endl;
+    if (b.isEmpty())
+    {
+        cout << "BALANCED" << endl;
     }
-    else{
-        cout<<"NOT BALANCED"<<endl;
+    else
+    {
+
+     cout<<"NOT BALANCED"<<endl;
     }
-    
+
     return 0;
 }
