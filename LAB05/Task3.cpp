@@ -6,7 +6,7 @@ using namespace std;
 class nodeOfChar
 {
 public:
-    char data;
+    string data;
     nodeOfChar *next;
 };
 class stackOfChar
@@ -24,7 +24,7 @@ public:
     {
         return size == 0;
     }
-    void Push(char data)
+    void Push(string data)
     {
         nodeOfChar *temp = new nodeOfChar();
 
@@ -38,7 +38,7 @@ public:
         if (!isEmpty())
         {
             nodeOfChar *temp = top;
-            int d = top->data;
+            char d = top->data;
             top = top->next;
             delete temp;
             size -= 1;
@@ -58,7 +58,7 @@ public:
 class nodeOfStr
 {
 public:
-    char data;
+    string data;
     nodeOfStr *next;
 };
 class stackOfStr
@@ -76,7 +76,7 @@ public:
     {
         return size == 0;
     }
-    void Push(char data)
+    void Push(string data)
     {
         nodeOfStr *temp = new nodeOfStr();
 
@@ -90,7 +90,7 @@ public:
         if (!isEmpty())
         {
             nodeOfStr *temp = top;
-            int d = top->data;
+            string d = top->data;
             top = top->next;
             delete temp;
             size -= 1;
@@ -98,7 +98,7 @@ public:
         }
         else
         {
-            return ' ';
+            return "";
         }
     }
     string Top()
@@ -122,7 +122,7 @@ bool operatorCheck(char opr)
 
 int main()
 {
-    stackOfstr optrInExp;
+    stackOfStr optrInExp;
     stackOfChar data;
     string toChange = "12+30/5";
     string answer;
@@ -133,7 +133,7 @@ int main()
         {
             optrInExp.Push(num);
             string num="";
-            optrInExp.Push(toChange[i]);
+            data.Push(toChange[i]);
         }
         else
         {
