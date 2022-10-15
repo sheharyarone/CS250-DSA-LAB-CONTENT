@@ -67,11 +67,7 @@ bool optrCheck(char s)
     }
     return false;
 }
-
-int main()
-{
-
-    string toChange = "12+30/5";
+void  convert(string toChange){
     stack f;
     string answer;
     string parts;
@@ -83,7 +79,7 @@ int main()
             parts = "";
             f.Push(toChange[i]);
         }
-        else
+        else if(isdigit(toChange[i]))
         {
             parts += toChange[i];
         }
@@ -95,6 +91,13 @@ int main()
     {
         cout << f.Pop();
     }
+}
+
+int main()
+{
+
+    string toChange = "{2*(430+10)}^3 ";
+    convert(toChange);
 
     return 0;
 }
