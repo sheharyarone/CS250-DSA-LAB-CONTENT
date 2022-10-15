@@ -1,32 +1,32 @@
+
 #include <iostream>
 #include <string>
-#include <typeinfo>
 using namespace std;
 
-class nodeOfChar
+class node
 {
 public:
-    string data;
-    nodeOfChar *next;
+    char data;
+    node *next;
 };
-class stackOfChar
+class stack
 {
 public:
-    nodeOfChar *top;
+    node *top;
     int size;
-    stackOfChar()
+    stack()
     {
         size = 0;
-        top = NULL;
+        top = nullptr;
     }
 
     bool isEmpty()
     {
         return size == 0;
     }
-    void Push(string data)
+    void Push(char data)
     {
-        nodeOfChar *temp = new nodeOfChar();
+        node *temp = new node();
 
         temp->data = data;
         temp->next = top;
@@ -37,8 +37,8 @@ public:
     {
         if (!isEmpty())
         {
-            nodeOfChar *temp = top;
-            char d = top->data;
+            node *temp = top;
+            int d = top->data;
             top = top->next;
             delete temp;
             size -= 1;
@@ -55,64 +55,12 @@ public:
     }
 };
 
-class nodeOfStr
+bool optrCheck(char s)
 {
-public:
-    string data;
-    nodeOfStr *next;
-};
-class stackOfStr
-{
-public:
-    nodeOfStr *top;
-    int size;
-    stackOfStr()
+    string check = "+-/*%^";
+    for (int i = 0; i < check.length(); i++)
     {
-        size = 0;
-        top = NULL;
-    }
-
-    bool isEmpty()
-    {
-        return size == 0;
-    }
-    void Push(string data)
-    {
-        nodeOfStr *temp = new nodeOfStr();
-
-        temp->data = data;
-        temp->next = top;
-        top = temp;
-        size += 1;
-    }
-    string Pop()
-    {
-        if (!isEmpty())
-        {
-            nodeOfStr *temp = top;
-            string d = top->data;
-            top = top->next;
-            delete temp;
-            size -= 1;
-            return d;
-        }
-        else
-        {
-            return "";
-        }
-    }
-    string Top()
-    {
-        return top->data;
-    }
-};
-
-bool operatorCheck(char opr)
-{
-    string s = "+-^*/%";
-    for (int i = 0; s.length() > i; i++)
-    {
-        if (s[i] == opr)
+        if (check[i] == s)
         {
             return true;
         }
@@ -122,23 +70,31 @@ bool operatorCheck(char opr)
 
 int main()
 {
-    stackOfStr optrInExp;
-    stackOfChar data;
+
     string toChange = "12+30/5";
+    stack f;
     string answer;
-    string num="";
+    string parts;
     for (int i = 0; i < toChange.length(); i++)
     {
-        if (operatorCheck(toChange[i]))
+        if (optrCheck(toChange[i]))
         {
-            optrInExp.Push(num);
-            string num="";
-            data.Push(toChange[i]);
+            answer += parts + " ";
+            parts = "";
+            f.Push(toChange[i]);
         }
         else
         {
-            num+=toChange[i];
+            parts += toChange[i];
         }
     }
+    answer += parts;
+
+    cout << answer;
+    for (int i = -1; i < f.size; i++)
+    {
+        cout << f.Pop();
+    }
+
     return 0;
 }
