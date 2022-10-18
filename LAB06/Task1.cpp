@@ -15,20 +15,28 @@ public:
     }
     bool isEmpty()
     {
-        return front == (rear+1);
+        return front == (rear + 1);
     }
     bool isFull()
     {
-        return (rear+1) == length;
+        return (rear + 1) == length;
     }
     void enqueue(int x)
     {
-        rear++;
-        items[rear] = x;
+        if (!isFull())
+        {
+            rear++;
+            items[rear] = x;
+        }
     }
     int dequeue()
     {
-        return items[front++];
+        if (!isEmpty())
+            return items[front++];
+        else
+        {
+            return -99999;
+        }
     }
     int firstElement()
     {
@@ -43,6 +51,18 @@ public:
 
 int main()
 {
+    Queue q;
+    cout << q.isEmpty() << endl;
+    cout << q.isFull() << endl;
+    q.enqueue(5);
+    q.enqueue(6);
+    q.enqueue(7);
+    cout << q.dequeue();
+    cout << q.dequeue();
+    cout << q.isFull() << endl;
+    cout << q.dequeue() << endl;
+    cout << q.dequeue() << endl;
+    cout << q.isEmpty() << endl;
 
     return 0;
 }
