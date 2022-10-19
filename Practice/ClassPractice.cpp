@@ -56,24 +56,54 @@ void swapping(struct Node *p)
 {
     Node *temp = new Node();
 
-    while (p != NULL && p->next != NULL && p->next->next!=NULL)
+    while (p != NULL && p->next != NULL && p->next->next != NULL)
     {
-        temp = p->next;  // 2 IN TEMP
-        p->next=p->next->next; // next of 1 is 3
-        temp->next=temp->next->next;  // next of 2 is 4
-        
-        p->next->next=temp; // next of 3 is 2
-        p=p->next->next;
+        temp = p->next;                // 2 IN TEMP
+        p->next = p->next->next;       // next of 1 is 3
+        temp->next = temp->next->next; // next of 2 is 4
+
+        p->next->next = temp; // next of 3 is 2
+        p = p->next->next;
+    }
+}
+
+void dlt_odd_nodes(struct Node *p)
+{
+    Node *temp = new Node();
+    if (p != NULL)
+    {
+        temp = p;
+        p = p->next;
+        first = p;
+        delete temp;
+    }
+    while (p != NULL)
+    {
+        if (p->next == NULL)
+        { // LAST EVEN
+            break;
+        }
+
+        temp = p->next;
+        if (p->next->next == NULL) // LAST ODD
+        {
+            p->next = NULL;
+        }
+        else
+        {
+            p->next = p->next->next;
+        }
+        delete temp;
+        p = p->next;
     }
 }
 
 int main()
 {
-    int A[] = {1, 2, 3, 4,5};
+    int A[] = {1, 2, 3, 4, 5, 6};
 
     create(A, sizeof(A) / sizeof(int));
-    Display(first);
-    swapping(first);
+    dlt_odd_nodes(first);
     Display(first);
     return 0;
 }
