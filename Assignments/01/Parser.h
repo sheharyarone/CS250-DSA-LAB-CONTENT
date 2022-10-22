@@ -6,7 +6,7 @@ using namespace std;
 
 string filename; // stores filename
 
-void readFileData(linkedList headNode) // reads text from a file and writes it to the AVL tree
+void readFileData(linkedList *headNode) // reads text from a file and writes it to the AVL tree
 {
   Dictionary *dict;
   string word, meaning;
@@ -23,34 +23,34 @@ void readFileData(linkedList headNode) // reads text from a file and writes it t
     fin.ignore();
     getline(fin, meaning);
     dict = new Dictionary(word, meaning);
-    headNode.insertAtHead(dict);
+    headNode->insertAtHead(dict);
   }
   fin.close();
 }
 
 
-// void writeToFile(ListNode *headNode) //write the linked list to a text file
-// {
-//   string word, meaning;
+void writeToFile(linkedList *headNode) //write the linked list to a text file
+{
+  string word, meaning;
 
-//   fstream dictFile; //create fstream object for the file
-//   cout << "\e[46mEnter the filename\x1b[0m ";
-// 	cin.ignore();
-//   cin >> filename;
-//   dictFile.open(filename, std::ios::app); //create/open a text file in append mode. new information is always added to the end
+  fstream dictFile; //create fstream object for the file
+  cout << "\e[46mEnter the filename\x1b[0m ";
+	cin.ignore();
+  cin >> filename;
+  dictFile.open(filename, std::ios::app); //create/open a text file in append mode. new information is always added to the end
 
-//   ListNode *iterator = headNode;
+  node *iterator = headNode->head;
 
-//   while(iterator != NULL) { //iterate over the linked list
-//     word = iterator->data.word;
-//     meaning = iterator->data.meaning;
-//     dictFile << word;
-//     dictFile << " " << meaning << endl; //write to data file
-//     iterator = iterator->next;   //advance to next node
-//   }
-//   dictFile.close();
-//   cout << "\e[0;32mDictionary entries added.\x1b[0m\n";
-// }
+  while(iterator != NULL) { //iterate over the linked list
+    word = iterator->data.word;
+    meaning = iterator->data.meaning;
+    dictFile << word;
+    dictFile << " " << meaning << endl; //write to data file
+    iterator = iterator->next;   //advance to next node
+  }
+  dictFile.close();
+  cout << "\e[0;32mDictionary entries added.\x1b[0m\n";
+}
 
 // void mainMenu() //menu function
 // {

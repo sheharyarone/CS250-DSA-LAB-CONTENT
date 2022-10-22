@@ -62,6 +62,7 @@ public:
     node *newnode = new node(dic);
     if (isempty())
     {
+      
       head = newnode;
       tail = newnode;
     }
