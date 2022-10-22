@@ -29,17 +29,18 @@ void readFileData(linkedList *headNode) // reads text from a file and writes it 
 }
 
 
-void writeToFile(linkedList *headNode) //write the linked list to a text file
+void writeToFile(node *headNode) //write the linked list to a text file
 {
   string word, meaning;
 
   fstream dictFile; //create fstream object for the file
   cout << "\e[46mEnter the filename\x1b[0m ";
-	cin.ignore();
-  cin >> filename;
-  dictFile.open(filename, std::ios::app); //create/open a text file in append mode. new information is always added to the end
+	// cin.ignore();
+  // cin >> filename;
 
-  node *iterator = headNode->head;
+  dictFile.open("writing_words.txt", std::ios::app); //create/open a text file in append mode. new information is always added to the end
+
+  node *iterator = headNode;
 
   while(iterator != NULL) { //iterate over the linked list
     word = iterator->data.word;
