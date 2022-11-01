@@ -4,8 +4,11 @@ using namespace std;
 
 int factorial(int num)
 {
-    cout << num << endl;
-
+    if(num<0){
+        cout<<"NO FACTORIAL FOR NEGATIVE NUMBERS.";
+        return -9999999;
+    }
+    cout << "recursive call for : "<<num << endl;
     if (num != 0)
     {
         return num * factorial(num - 1);
@@ -16,7 +19,6 @@ int factorial(int num)
 
 int main()
 {
-    cout << "recursive call for : " << endl;
     cout << "ANSWER IS : " << factorial(5);
     return 0;
 }
