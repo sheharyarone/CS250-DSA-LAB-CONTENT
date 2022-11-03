@@ -5,7 +5,7 @@ using namespace std;
 bool check(string toCheck, int index)
 {
     cout << index << "  " << toCheck.length() - index - 1 << endl;
-    if (index > toCheck.length() - index - 1) // WHEN INDEX BECOMES GREATER THAN THE POINTER FROM END
+    if (index >= toCheck.length() - index - 1) // WHEN INDEX BECOMES GREATER THAN THE POINTER FROM END
     {
         return true;
     }
