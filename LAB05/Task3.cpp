@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <string>
 using namespace std;
@@ -13,18 +12,18 @@ class stack
 {
 public:
     node *top;
-    int size;
+    char size;
     stack()
     {
         size = 0;
-        top = nullptr;
+        top = NULL;
     }
 
     bool isEmpty()
     {
         return size == 0;
     }
-    void Push(char data)
+    void Push(int data)
     {
         node *temp = new node();
 
@@ -38,7 +37,7 @@ public:
         if (!isEmpty())
         {
             node *temp = top;
-            int d = top->data;
+            char d = top->data;
             top = top->next;
             delete temp;
             size -= 1;
@@ -46,7 +45,7 @@ public:
         }
         else
         {
-            return ' ';
+            return '-';
         }
     }
     char Top()
@@ -55,49 +54,101 @@ public:
     }
 };
 
-bool optrCheck(char s)
+void postFix(string s)
 {
-    string check = "+-/*%^";
-    for (int i = 0; i < check.length(); i++)
+    stack optrStack;
+    string postFix = "";
+    for (int i = 0; i < s.length(); i++)
     {
-        if (check[i] == s)
+        char c = s[i];
+        cout << postFix << endl;
+        cout << "CHARACTER : " << c << endl;
+        if ((int(c) >= int('A') && int(c) <= int('Z')) ||
+            (int(c) >= int('a') && int(c) <= int('z')) ||
+            (int(c) >= int('0') && int(c) <= int('9')))
         {
-            return true;
+            postFix += c;
         }
-    }
-    return false;
-}
-void  convert(string toChange){
-    stack f;
-    string answer;
-    string parts;
-    for (int i = 0; i < toChange.length(); i++)
-    {
-        if (optrCheck(toChange[i]))
+        else if (c == '{' || c == '[' || c == '(')
         {
-            answer += parts + " ";
-            parts = "";
-            f.Push(toChange[i]);
+            optrStack.Push(c);
         }
-        else if(isdigit(toChange[i]))
+        else if (c == '}' || c == ']' || c == ')')
         {
-            parts += toChange[i];
+            while (optrStack.Top() != '{' &&
+                   optrStack.Top() != '[' &&
+                   optrStack.Top() != '(')
+            {
+                postFix += optrStack.Pop();
+            }
+            optrStack.Pop();
         }
-    }
-    answer += parts;
+        else
+        {
+            // STACK IS EMPTY
+            if (optrStack.isEmpty() || optrStack.Top() == '{' || optrStack.Top() == '[' || optrStack.Top() == '(')
+            {
+                optrStack.Push(c);
+            }
+            // SAME PRECEDENCE OPERATORS ARE THERE HAVING LEFT TO RIGHT PRECEDENCE
+            else if (((c == '+' || c == '-') && (optrStack.Top() == '+' || optrStack.Top() == '-')) ||
+                     ((c == '*' || c == '/') && (optrStack.Top() == '*' || optrStack.Top() == '/')))
+            {
+                // cout<<"SAME RPECEDENCE LEFT TO RIGHT"<<endl;
+                postFix += optrStack.Pop();
+                optrStack.Push(c);
+            }
+            // SAME PRECEDENCE BUT PRECEDENCE FROM RIGHT TO LEFT
+            else if ((c == '^') && (optrStack.Top() == '^'))
+            {
+                postFix += c;
+            }
+            // MORE PRECEDENCE OPERATOR CAME UP
+            else if ((c == '/' || c == '*') && (optrStack.Top() == '+' || optrStack.Top() == '-'))
+            {
+                // cout << "MORE PRECEDENCE CAME UP" << endl;
+                optrStack.Push(c);
+            }
+            // LESS PRECEDENCE OEPRATOR CAME UP ( +  -)
+            else if ((c == '+' || c == '-') && (optrStack.Top() == '*' || optrStack.Top() == '/' || optrStack.Top() == '^'))
+            {
+                postFix += optrStack.Pop();
+                while ((optrStack.Top() == '+' || optrStack.Top() == '-'))
+                {
 
-    cout << answer;
-    for (int i = -1; i < f.size; i++)
-    {
-        cout << f.Pop();
+                    postFix += optrStack.Pop();
+
+                    if (optrStack.isEmpty())
+                    {
+                        break;
+                    }
+                }
+                optrStack.Push(c);
+            }
+            // LESS PRECEDENCE OEPRATOR CAME UP ( *  /)
+            else if ((c == '*' || c == '/') && (optrStack.Top() == '^'))
+            {
+                postFix += optrStack.Pop();
+                while (optrStack.Top() == '^')
+                {
+                    postFix += optrStack.Pop();
+                }
+                optrStack.Push(c);
+            }
+        }
     }
+    while (!optrStack.isEmpty())
+    {
+
+        postFix += optrStack.Pop();
+    }
+
+    cout << postFix;
 }
 
 int main()
 {
-
-    string toChange = "{2*(430+10)}^3 ";
-    convert(toChange);
-
+    string s = "K+L-M*N+(O^P)*W/U/V*T+Q";
+    postFix(s);
     return 0;
 }
