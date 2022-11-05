@@ -1,60 +1,120 @@
+
+// Singly Linked List
 #include <iostream>
-#include <string>
 using namespace std;
-
-struct Node
+class node
 {
+public:
     int data;
-    struct Node *next;
-}
-    *first = NULL;
+    node *next;
+    node(int val)
+    {
+        data = val;
+        next = nullptr;
+    }
+};
 
-void create(int A[], int n)
+class linkedList
 {
-    int i;
-    struct Node *t, *last;
-    first = new Node();
-    first->data = A[0];
-    first->next = NULL;
-    last = first;
+public:
+    node *head;
+    node *tail;
+    node *ploc;
+    node *loc;
 
-    for (i = 1; i < n; i++)
+    linkedList()
     {
+        head = nullptr;
+        tail = nullptr;
+        ploc = nullptr;
+        loc = nullptr;
+    }
 
-        t = new Node();
-        t->data = A[i];
-        t->next = NULL;
-        last->next = t;
-        last = t;
-    }
-}
-void DisplayRecursive(struct Node *p)
-{
-    if (p != NULL)
+    bool isempty() const
     {
-        cout << p->data << endl;
-        DisplayRecursive(p->next);
+        return head == nullptr;
     }
-}
 
-void Rec_reverse(Node *q, Node *p)
-{
+    int length() const
+    {
+        node *temp = head;
+        int n = 0;
 
-    if (p != NULL)
-    {
-        Rec_reverse(p, p->next);
-        p->next = q;
+        while (temp != nullptr)
+        {
+            n++;
+            temp = temp->next;
+        }
+        return n;
     }
-    else
+
+    void insetAtHead(int val)
     {
-        first = q;
+        node *newnode = new node(val);
+        if (isempty())
+        {
+            head = newnode;
+            tail = newnode;
+        }
+        else
+        {
+            newnode->next = head;
+            head = newnode;
+        }
     }
-}
+
+    void insertAtTail(int val)
+    {
+        node *newnode = new node(val);
+        if (isempty())
+        {
+            head = newnode;
+            tail = newnode;
+        }
+        else
+        {
+            tail->next = newnode;
+            tail = newnode;
+        }
+    }
+    void printll() const
+    {
+        node *temp = head;
+        while (temp != nullptr)
+        {
+            cout << temp->data << " ";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+    void reverseList(node *ploc, node *loc)
+    {
+        if (loc != nullptr)
+        {
+            reverseList(loc, loc->next);
+            loc->next = ploc;
+        }
+        if (loc == head)
+        {
+            head = tail;
+            tail = loc;
+        }
+    }
+};
+
 int main()
 {
-    int A[] = {1, 2, 3, 4, 5, 6};
+    linkedList ll;
+    ll.insetAtHead(7);
+    ll.insetAtHead(4);
+    ll.insertAtTail(9);
+    ll.insertAtTail(12);
+    ll.insertAtTail(34);
+    ll.insertAtTail(41);
 
-    create(A, sizeof(A) / sizeof(int));
-    Rec_reverse(NULL, first);
-    DisplayRecursive(first);
+    ll.printll();
+
+    node *temp = ll.head;
+    ll.reverseList(nullptr, temp);
+    ll.printll();
 }
