@@ -114,7 +114,6 @@ int main()
 
     ll.printll();
 
-    node *temp = ll.head;
-    ll.reverseList(nullptr, temp);
+    ll.reverseList(nullptr, ll.head);
     ll.printll();
 }
