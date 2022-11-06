@@ -124,6 +124,8 @@ public:
             // EVEN NODE OPERATION
             else
             {
+                // IN CASE OF EVEN NUMBER OF NODES, NO NEED TO UPDATE THE LINK OF
+                // LAST ODD TO LAST EVEN BECAUSE LAST ODD NODE IS ALREADY LINKED WITH LAST EVEN NODE
                 sloc = sloc->next;
                 loc->next->next = ploc;
                 rearrangeEvenOdd(loc, loc->next, sloc, ++node_num);
@@ -137,7 +139,7 @@ int main()
     linkedList ll;
     ll.insetAtHead(1);
     ll.insertAtTail(2);
-    // ll.insertAtTail(3);
+    ll.insertAtTail(3);
     ll.printll();
     ll.rearrangeEvenOdd(ll.head, ll.head->next, ll.head->next->next);
     ll.printll();
