@@ -84,20 +84,28 @@ public:
     }
     void rearrangeEvenOdd(node *ploc, node *loc, node *sloc, int node_num = 1) // ploc:head loc sloc
     {
-        // cout << "DATA : " << ploc->data << " " << loc->data << " " << sloc->data << endl;
+        // ploc : head  loc :head->next  sloc : head->next->next
+        // AFTER EACH ITERTAION all *locs will move forward by 1 point
+        // node_num will decide the even odd node operation
+
+        if (ploc == head && sloc == nullptr)
+        {
+            tail->next = head;
+            head = tail;
+            tail = ploc;
+            tail->next = nullptr;
+            return;
+        }
+
         if (sloc != nullptr)
         {
+            // ODD NODE OEPRATION
             if (node_num % 2 != 0)
             {
-                // if (ploc == head)
-                // {
-                //     loc->next=nullptr;
-                //     tail=loc;
-                // }
-
                 ploc->next = sloc;
-                // cout << "if : ";
-                // printll();
+
+                // IF WE GOT TAIL NODE (THAT WILL BE ODD TAIL NODE) IN SLOC NO FURTHER FUNCTION CALLING
+                // CONNECTING IT TO LAST EVEN NODE AND NO FURTHER FUNCTION CALLING
                 if (sloc == tail)
                 {
                     sloc->next = loc;
@@ -106,18 +114,18 @@ public:
                 {
                     rearrangeEvenOdd(loc, sloc, sloc->next, ++node_num);
                 }
+                // UPDATING THE TAIL NODE OF LIST
                 if (ploc == head)
                 {
                     loc->next = nullptr;
                     tail = loc;
                 }
             }
+            // EVEN NODE OPERATION
             else
             {
                 sloc = sloc->next;
                 loc->next->next = ploc;
-                // cout << "else : ";
-                // printll();
                 rearrangeEvenOdd(loc, loc->next, sloc, ++node_num);
             }
         }
@@ -129,13 +137,7 @@ int main()
     linkedList ll;
     ll.insetAtHead(1);
     ll.insertAtTail(2);
-    ll.insertAtTail(3);
-    ll.insertAtTail(4);
-    ll.insertAtTail(5);
-    ll.insertAtTail(6);
-    ll.insertAtTail(7);
-    ll.insertAtTail(8);
-    // ll.insertAtTail(9);
+    // ll.insertAtTail(3);
     ll.printll();
     ll.rearrangeEvenOdd(ll.head, ll.head->next, ll.head->next->next);
     ll.printll();
