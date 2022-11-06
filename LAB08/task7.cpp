@@ -84,7 +84,7 @@ public:
     }
     void rearrangeEvenOdd(node *ploc, node *loc, node *sloc, int node_num = 1) // ploc:head loc sloc
     {
-        cout<<"DATA : "<<ploc->data<<" "<<loc->data<<" "<<sloc->data<<endl;
+        // cout << "DATA : " << ploc->data << " " << loc->data << " " << sloc->data << endl;
         if (sloc != nullptr)
         {
             if (node_num % 2 != 0)
@@ -94,21 +94,30 @@ public:
                 //     loc->next=nullptr;
                 //     tail=loc;
                 // }
-                
+
                 ploc->next = sloc;
-                cout<<"if : ";printll();
-                rearrangeEvenOdd(loc, sloc, sloc->next, ++node_num);
+                // cout << "if : ";
+                // printll();
+                if (sloc == tail)
+                {
+                    sloc->next = loc;
+                }
+                else
+                {
+                    rearrangeEvenOdd(loc, sloc, sloc->next, ++node_num);
+                }
                 if (ploc == head)
                 {
-                    loc->next=nullptr;
-                    tail=loc;
+                    loc->next = nullptr;
+                    tail = loc;
                 }
             }
             else
             {
                 sloc = sloc->next;
                 loc->next->next = ploc;
-                cout<<"else : ";printll();
+                // cout << "else : ";
+                // printll();
                 rearrangeEvenOdd(loc, loc->next, sloc, ++node_num);
             }
         }
@@ -125,7 +134,7 @@ int main()
     ll.insertAtTail(5);
     ll.insertAtTail(6);
     ll.insertAtTail(7);
-    // ll.insertAtTail(8);
+    ll.insertAtTail(8);
     // ll.insertAtTail(9);
     ll.printll();
     ll.rearrangeEvenOdd(ll.head, ll.head->next, ll.head->next->next);
