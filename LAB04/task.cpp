@@ -125,14 +125,14 @@ void CLL::insertedSorted(int data)
             list = newnode;
             list->next = list;
         }
-        else if (loc == list)
-        {
-            insertAtTail(data);
-        }
         else
         {
+            newnode->next = ploc->next;
             ploc->next = newnode;
-            newnode->next = loc;
+            if (ploc == list)
+            {
+                list = newnode;
+            }
         }
     }
 }
