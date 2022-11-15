@@ -154,7 +154,8 @@ void CLL::Delete(int data)
         }
         else
         {
-            delete list;
+            Node *temp = list;
+            delete temp;
             list = NULL;
         }
     }
