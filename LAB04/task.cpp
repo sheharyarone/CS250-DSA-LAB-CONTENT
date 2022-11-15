@@ -57,6 +57,7 @@ void CLL ::insertAtTail(int data)
     if (!isEmpty())
     {
         newnode->next = list->next;
+        list->next = newnode;
         list = newnode;
     }
     // EMPTY CASE
