@@ -10,6 +10,9 @@ void printArr(int arr[], int size)
     }
     cout << endl;
 }
+void bubbleSort(int arr[], int size)
+{
+}
 void selectionSort(int arr[], int size)
 {
     for (int i = 0; i < size - 1; i++)
