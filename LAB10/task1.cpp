@@ -58,7 +58,7 @@ public:
             {
                 ploc = root;
 
-                if (ploc->rightChild != nullptr)
+                if (ploc->leftChild != nullptr)
                     loc = ploc->leftChild;
 
                 else
@@ -113,15 +113,19 @@ public:
 
     void insert(int data)
     {
+
         Search(data);
         if (loc == nullptr && ploc == nullptr)
         {
             root = new BST_Node(data);
             return;
         }
+        if (loc != nullptr && loc->data == data)
+        {
+            return;
+        }
         if (ploc != nullptr)
         {
-
             // LEFT MOVEMENT
             if (data < ploc->data)
             {
@@ -147,7 +151,6 @@ int main()
     b.insert(9);
     b.insert(7);
     b.insert(2);
-    b.insert(2);
-
+    b.insert(4);
     return 0;
 }
