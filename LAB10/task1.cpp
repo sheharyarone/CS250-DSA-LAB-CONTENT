@@ -3,106 +3,151 @@
 
 using namespace std;
 
-class BST_Node {
+class BST_Node
+{
 public:
     int data;
     BST_Node *leftChild;
     BST_Node *rightChild;
 
-    explicit BST_Node(int data_ = -1) {
+    explicit BST_Node(int data_ = -1)
+    {
         leftChild = nullptr;
         rightChild = nullptr;
         data = data_;
     }
 };
 
-class BST {
+class BST
+{
 public:
     BST_Node *root;
     BST_Node *ploc;
     BST_Node *loc;
 
-    explicit BST(BST_Node *root_ = nullptr) {
+    explicit BST(BST_Node *root_ = nullptr)
+    {
         root = root_;
         ploc = nullptr;
         loc = nullptr;
     }
 
-    bool isEmpty() const {
+    bool isEmpty() const
+    {
         return root == nullptr;
     }
 
-    void Search(int data) {
-        if (isEmpty()) {
+    void Search(int data)
+    {
+        if (isEmpty())
+        {
             return;
         }
 
         // FIRST ITERATION
-        if (loc == nullptr && ploc == nullptr) {
+        if (loc == nullptr && ploc == nullptr)
+        {
             // ROOT DATA IS REQUIRED DATA
-            if (data == root->data) {
+            if (data == root->data)
+            {
                 loc = root;
                 return;
             }
             // ROOT DATA IS GRATER => LEFT MOVEMENT
-            if (data < root->data) {
+            if (data < root->data)
+            {
                 ploc = root;
-                loc = root->leftChild;
+
+                if (ploc->rightChild != nullptr)
+                    loc = ploc->leftChild;
+
+                else
+                {
+                    loc == nullptr;
+                    return;
+                }
             }
-                // ROOT DATA IS SMALLER => RIGHT MOVEMENT
-            else {
+            // ROOT DATA IS SMALLER => RIGHT MOVEMENT
+            else
+            {
                 ploc = root;
-                loc = root->rightChild;
+                if (ploc->rightChild != nullptr)
+                    loc = ploc->rightChild;
+                else
+                {
+                    loc == nullptr;
+                    return;
+                }
             }
         }
         // LEFT MOVEMENT
-        if (data < loc->data) {
+        if (data < loc->data)
+        {
             ploc = loc;
-            if (loc->rightChild != nullptr) loc = loc->leftChild;
-            else loc == nullptr;
+            if (loc->leftChild != nullptr)
+                loc = loc->leftChild;
+            else
+            {
+                loc == nullptr;
+                return;
+            }
         }
-            // RIGHT MOVEMENT
-        else if (data > loc->data) {
+        // RIGHT MOVEMENT
+        else if (data > loc->data)
+        {
             ploc = loc;
-            if (loc->rightChild != nullptr) loc = loc->rightChild;
-            else loc == nullptr;
+            if (loc->rightChild != nullptr)
+                loc = loc->rightChild;
+            else
+            {
+                loc == nullptr;
+                return;
+            }
         }
-        //VALUE NOT FOUND     // WE EXCEED THE POSITION WHERE IT SHOULD BE SO LOC IS NULL
-        if (loc->data != data && loc != nullptr) {
+        // VALUE NOT FOUND     // WE EXCEED THE POSITION WHERE IT SHOULD BE SO LOC IS NULL
+        if (loc->data != data)
+        {
             Search(data);
         }
     }
 
-    void insert(int data) {
+    void insert(int data)
+    {
         Search(data);
-        if (loc == nullptr && ploc == nullptr) {
+        if (loc == nullptr && ploc == nullptr)
+        {
             root = new BST_Node(data);
+            return;
         }
-        if (loc == nullptr) {
+        if (ploc != nullptr)
+        {
+
             // LEFT MOVEMENT
-            if (data < ploc->data) {
+            if (data < ploc->data)
+            {
                 ploc->leftChild = new BST_Node(data);
             }
-                // RIGHT MOVEMENT
-            else {
+            // RIGHT MOVEMENT
+            else
+            {
                 ploc->rightChild = new BST_Node(data);
             }
         }
-
+        ploc = nullptr;
+        loc = nullptr;
     }
 };
 
-
-int main() {
-
+int main()
+{
     BST b;
     b.insert(6);
     b.insert(4);
-    b.insert(1);
-    b.insert(2);
     b.insert(8);
     b.insert(9);
     b.insert(7);
+    b.insert(2);
+    b.insert(2);
 
     return 0;
 }
