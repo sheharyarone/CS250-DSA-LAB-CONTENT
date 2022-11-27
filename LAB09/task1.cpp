@@ -65,10 +65,65 @@ void selectionSort(int arr[], int size) {
     printArr(arr, size);
 }
 
+void merge(int arr[], int first, int middle, int last) {
+    int i, j, k;
+    int size1 = middle - first + 1;
+    int size2 = last - middle;
+    int *tempArr1 = new int[size1];
+    int *tempArr2 = new int[size2];
+
+    //MOVING DATA TO TEMP ARRAYS
+    for (int i = 0; i < size1; i++) {
+        tempArr1[i] = arr[first + i];
+    }
+    for (int i = 0; i < size1; i++) {
+        tempArr2[i] = arr[middle + 1 + i];
+    }
+
+    i = 0;
+    j = 0;
+    k = first;
+
+    while (i < size1 & j < size2) {
+        if (tempArr1[i] <= tempArr2[j]) {
+            arr[k] = tempArr1[i];
+            i++;
+        } else {
+            arr[k] = tempArr2[j];
+            j++;
+        }
+        k++;
+    }
+    while (i < size1) {
+        arr[k] = tempArr1[i];
+        i++;
+        k++;
+    }
+    while (j < size1) {
+        arr[k] = tempArr2[j];
+        j++;
+        k++;
+    }
+    delete tempArr1;
+    delete tempArr2;
+}
+
+void mergeSort(int arr[], int first, int last) {
+    if (last > first) {
+        int middle = (last + first) / 2;
+        mergeSort(arr, first, middle);
+        mergeSort(arr, middle + 1, last);
+        merge(arr, first, middle, last);
+    }
+}
+
+
 int main() {
-    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int arr[] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+
 //    selectionSort(arr, 9);
 //    bubbleSort(arr, 9);
-    shortBubbleSort(arr, 9);
+//    shortBubbleSort(arr, 9);
+//    mergeSort(arr, 0, 9 - 1);
     return 0;
 }
