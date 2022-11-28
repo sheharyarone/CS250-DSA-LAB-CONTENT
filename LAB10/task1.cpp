@@ -140,6 +140,33 @@ public:
         ploc = nullptr;
         loc = nullptr;
     }
+    void preOrderTraversal(BST_Node *p)
+    {
+        if (p != nullptr)
+        {
+            cout << p->data << endl;
+            preOrderTraversal(p->leftChild);
+            preOrderTraversal(p->rightChild);
+        }
+    }
+    void inOrderTraversal(BST_Node *p)
+    {
+        if (p != nullptr)
+        {
+            preOrderTraversal(p->leftChild);
+            cout << p->data << endl;
+            preOrderTraversal(p->rightChild);
+        }
+    }
+    void postOrderTraversal(BST_Node *p)
+    {
+        if (p != nullptr)
+        {
+            preOrderTraversal(p->leftChild);
+            preOrderTraversal(p->rightChild);
+            cout << p->data << endl;
+        }
+    }
 };
 
 int main()
@@ -150,7 +177,15 @@ int main()
     b.insert(8);
     b.insert(9);
     b.insert(7);
+    b.insert(5);
+
     b.insert(2);
     b.insert(4);
+    b.preOrderTraversal(b.root);
+    cout << endl;
+    b.inOrderTraversal(b.root);
+    cout << endl;
+    b.postOrderTraversal(b.root);
+
     return 0;
 }
