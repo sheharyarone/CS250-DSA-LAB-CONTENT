@@ -158,13 +158,47 @@ public:
             preOrderTraversal(p->rightChild);
         }
     }
+    void largest()
+    {
+        if (isEmpty())
+        {
+            cout << "EMPTY" << endl;
+            return;
+        }
+        loc = root;
+        while (loc != nullptr)
+        {
+            ploc = loc;
+            loc = loc->rightChild;
+        }
+        cout << ploc->data << endl;
+        loc = nullptr;
+        ploc = nullptr;
+    }
+    void smallest()
+    {
+        if (isEmpty())
+        {
+            cout << "EMPTY" << endl;
+            return;
+        }
+        loc = root;
+        while (loc != nullptr)
+        {
+            ploc = root;
+            loc = loc->leftChild;
+        }
+        cout << "SMALLEST : " << ploc->data << endl;
+        loc = nullptr;
+        ploc = nullptr;
+    }
     void postOrderTraversal(BST_Node *p)
     {
         if (p != nullptr)
         {
             preOrderTraversal(p->leftChild);
             preOrderTraversal(p->rightChild);
-            cout << p->data << endl;
+            cout << "LARGEST : " << p->data << endl;
         }
     }
 };
@@ -181,11 +215,12 @@ int main()
 
     b.insert(2);
     b.insert(4);
-    b.preOrderTraversal(b.root);
-    cout << endl;
-    b.inOrderTraversal(b.root);
-    cout << endl;
-    b.postOrderTraversal(b.root);
-
+    // b.preOrderTraversal(b.root);
+    // cout << endl;
+    // b.inOrderTraversal(b.root);
+    // cout << endl;
+    // b.postOrderTraversal(b.root);
+    b.smallest();
+    b.largest();
     return 0;
 }
