@@ -43,71 +43,20 @@ public:
         {
             return;
         }
-
-        // FIRST ITERATION
-        if (loc == nullptr && ploc == nullptr)
+        loc = root;
+        while (loc != nullptr && loc->data != data)
         {
-            // ROOT DATA IS REQUIRED DATA
-            if (data == root->data)
+            // LEFT MOVEMENT
+            if (loc->data > data)
             {
-                loc = root;
-                return;
-            }
-            // ROOT DATA IS GRATER => LEFT MOVEMENT
-            if (data < root->data)
-            {
-                ploc = root;
-
-                if (ploc->leftChild != nullptr)
-                    loc = ploc->leftChild;
-
-                else
-                {
-                    loc == nullptr;
-                    return;
-                }
-            }
-            // ROOT DATA IS SMALLER => RIGHT MOVEMENT
-            else
-            {
-                ploc = root;
-                if (ploc->rightChild != nullptr)
-                    loc = ploc->rightChild;
-                else
-                {
-                    loc == nullptr;
-                    return;
-                }
-            }
-        }
-        // LEFT MOVEMENT
-        if (data < loc->data)
-        {
-            ploc = loc;
-            if (loc->leftChild != nullptr)
+                ploc = loc;
                 loc = loc->leftChild;
+            }
             else
             {
-                loc == nullptr;
-                return;
-            }
-        }
-        // RIGHT MOVEMENT
-        else if (data > loc->data)
-        {
-            ploc = loc;
-            if (loc->rightChild != nullptr)
+                ploc = loc;
                 loc = loc->rightChild;
-            else
-            {
-                loc == nullptr;
-                return;
             }
-        }
-        // VALUE NOT FOUND     // WE EXCEED THE POSITION WHERE IT SHOULD BE SO LOC IS NULL
-        if (loc->data != data)
-        {
-            Search(data);
         }
     }
 
