@@ -150,9 +150,21 @@ public:
             cout << "LARGEST : " << p->data << endl;
         }
     }
-    // void printLeafNodes(BST_Node *p)
-    // {
-    // }
+    void printLeafNodes(BST_Node *p)
+    {
+        if (p != nullptr)
+        {
+            if (p->leftChild == nullptr && p->rightChild == nullptr)
+            {
+                cout << p->data << endl;
+            }
+            else
+            {
+                printLeafNodes(p->leftChild);
+                printLeafNodes(p->rightChild);
+            }
+        }
+    }
 };
 
 int main()
@@ -173,5 +185,6 @@ int main()
     // b.postOrderTraversal(b.root);
     // b.smallest();
     // b.largest();
+    // b.printLeafNodes(b.root);
     return 0;
 }
