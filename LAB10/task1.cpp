@@ -102,9 +102,9 @@ public:
     {
         if (p != nullptr)
         {
-            preOrderTraversal(p->leftChild);
+            inOrderTraversal(p->leftChild);
             cout << p->data << endl;
-            preOrderTraversal(p->rightChild);
+            inOrderTraversal(p->rightChild);
         }
     }
     void largest()
@@ -145,11 +145,14 @@ public:
     {
         if (p != nullptr)
         {
-            preOrderTraversal(p->leftChild);
-            preOrderTraversal(p->rightChild);
+            postOrderTraversal(p->leftChild);
+            postOrderTraversal(p->rightChild);
             cout << "LARGEST : " << p->data << endl;
         }
     }
+    // void printLeafNodes(BST_Node *p)
+    // {
+    // }
 };
 
 int main()
@@ -161,7 +164,6 @@ int main()
     b.insert(9);
     b.insert(7);
     b.insert(5);
-
     b.insert(2);
     b.insert(4);
     // b.preOrderTraversal(b.root);
@@ -169,7 +171,7 @@ int main()
     // b.inOrderTraversal(b.root);
     // cout << endl;
     // b.postOrderTraversal(b.root);
-    b.smallest();
-    b.largest();
+    // b.smallest();
+    // b.largest();
     return 0;
 }
