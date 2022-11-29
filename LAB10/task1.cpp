@@ -2,6 +2,7 @@
 #include <string>
 
 using namespace std;
+int count = 0;
 
 class BST_Node
 {
@@ -165,8 +166,22 @@ public:
             }
         }
     }
+    void countLeafNodes(BST_Node *p)
+    {
+        if (p != nullptr)
+        {
+            if (p->leftChild == nullptr && p->rightChild == nullptr)
+            {
+                count = count + 1;
+            }
+            else
+            {
+                countLeafNodes(p->leftChild);
+                countLeafNodes(p->rightChild);
+            }
+        }
+    }
 };
-
 int main()
 {
     BST b;
@@ -186,5 +201,7 @@ int main()
     // b.smallest();
     // b.largest();
     // b.printLeafNodes(b.root);
+    b.countLeafNodes(b.root);
+    cout << count;
     return 0;
 }
