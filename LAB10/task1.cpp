@@ -166,33 +166,84 @@ public:
             }
         }
     }
-    void countLeafNodes(BST_Node *p)
+    int countLeafNodes(BST_Node *p)
     {
         if (p != nullptr)
         {
             if (p->leftChild == nullptr && p->rightChild == nullptr)
             {
-                count = count + 1;
+                return 1;
             }
             else
             {
-                countLeafNodes(p->leftChild);
-                countLeafNodes(p->rightChild);
+                return countLeafNodes(p->leftChild) + countLeafNodes(p->rightChild);
             }
         }
+        else
+        {
+            return 0;
+        }
+    }
+    int countInternalNodes(BST_Node *p)
+    {
+        if (p != nullptr)
+        {
+            if (p->leftChild == nullptr && p->rightChild == nullptr)
+            {
+                return 0;
+            }
+            else
+            {
+                return 1 + countInternalNodes(p->leftChild) + countInternalNodes(p->rightChild);
+            }
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    int heightOfBST(BST_Node *p)
+    {
+        if (p != nullptr)
+        {
+            return 1 + max(heightOfBST(p->leftChild), heightOfBST(p->rightChild));
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    int maxDepth(BST_Node *p)
+    {
+        // Root being null means tree doesn't exist.
+        if (p == NULL)
+            return 0;
+
+        // Get the depth of the left and right subtree
+        // using recursion.
+        int leftDepth = maxDepth(p->leftChild);
+        int rightDepth = maxDepth(p->rightChild);
+
+        // Choose the larger one and add the root to it.
+        if (leftDepth > rightDepth)
+            return leftDepth + 1;
+        else
+            return rightDepth + 1;
     }
 };
 int main()
 {
     BST b;
-    b.insert(6);
-    b.insert(4);
+    b.insert(15);
+    b.insert(10);
     b.insert(8);
-    b.insert(9);
     b.insert(7);
+    b.insert(6);
     b.insert(5);
-    b.insert(2);
     b.insert(4);
+    b.insert(3);
+    b.insert(2);
+
     // b.preOrderTraversal(b.root);
     // cout << endl;
     // b.inOrderTraversal(b.root);
@@ -201,7 +252,9 @@ int main()
     // b.smallest();
     // b.largest();
     // b.printLeafNodes(b.root);
-    b.countLeafNodes(b.root);
-    cout << count;
+    // cout << b.countLeafNodes(b.root);
+    // cout << b.countInternalNodes(b.root);
+    // cout << b.heightOfBST(b.root);
+
     return 0;
 }
