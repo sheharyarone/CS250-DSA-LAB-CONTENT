@@ -231,117 +231,134 @@ public:
 
     void deleteNode(int data)
     {
+        // IF EMPTY
         if (isEmpty())
         {
             return;
         }
         Search(data);
-        if (loc != nullptr)
+        // IF VALUE NOT FOUND
+        if (loc == nullptr)
         {
-            // ROOT NODE CASE
+            return;
+        }
+        // LEAF NODE CASE
+        if (loc->leftChild == nullptr && loc->rightChild == nullptr)
+        {
             if (ploc == nullptr)
             {
-                delete loc;
                 root = nullptr;
+                delete loc;
             }
-            // LEAF NODE CASE
-            else if (loc->leftChild == nullptr && loc->rightChild == nullptr)
+            else if (ploc->leftChild == loc)
             {
-                if (ploc->leftChild == loc)
-                {
-                    ploc->leftChild = nullptr;
-                    delete loc;
-                }
-                else
-                {
-                    ploc->rightChild = nullptr;
-                    delete loc;
-                }
+                ploc->leftChild = nullptr;
+                delete loc;
             }
-            // NODE WITH ONLY ONE NODE
-
-            // NODE HAVING LEFT NODE
-            else if (loc->leftChild != nullptr && loc->rightChild == nullptr)
-            {
-                if (ploc->leftChild == loc)
-                {
-                    ploc->leftChild = loc->leftChild;
-                    delete loc;
-                }
-                else
-                {
-                    ploc->rightChild = loc->leftChild;
-                    delete loc;
-                }
-            }
-            // NODE HAVING RIGHT NODE
-            else if (loc->rightChild != nullptr && loc->leftChild == nullptr)
-            {
-                if (ploc->leftChild == loc)
-                {
-                    ploc->leftChild = loc->rightChild;
-                    delete loc;
-                }
-                else
-                {
-                    ploc->rightChild = loc->rightChild;
-                    delete loc;
-                }
-            }
-            // NODE HAVING TWO CHILDREN
             else
             {
-                BST_Node *ploc1 = loc;
-                BST_Node *loc1 = loc->leftChild;
-                while (loc1->rightChild != nullptr)
-                {
-                    ploc1 = loc1;
-                    loc1 = loc1->rightChild;
-                }
-                if (loc->leftChild == loc1)
-                {
-                    loc->leftChild = loc1->leftChild;
-                }
-                else if (loc1->leftChild != nullptr)
-                {
-                    ploc1->rightChild = loc1->leftChild;
-                }
-                else
-                {
-                    ploc1->rightChild = nullptr;
-                }
-                loc1->leftChild = loc->leftChild;
-                loc1->rightChild = loc->rightChild;
-                if (ploc->rightChild == loc)
-                {
-                    ploc->rightChild = loc1;
-                }
-                else
-                {
-                    ploc->leftChild = loc1;
-                }
+                ploc->rightChild = nullptr;
                 delete loc;
             }
         }
+        // NODE WITH ONLY ONE NODE
+
+        // NODE HAVING LEFT NODE
+        else if (loc->leftChild != nullptr && loc->rightChild == nullptr)
+        {
+            if (ploc == nullptr)
+            {
+                root = loc->leftChild;
+                delete loc;
+            }
+            else if (ploc->leftChild == loc)
+            {
+                ploc->leftChild = loc->leftChild;
+                delete loc;
+            }
+            else
+            {
+                ploc->rightChild = loc->leftChild;
+                delete loc;
+            }
+        }
+        // NODE HAVING RIGHT NODE
+        else if (loc->rightChild != nullptr && loc->leftChild == nullptr)
+        {
+            if (ploc == nullptr)
+            {
+                root = loc->rightChild;
+                delete loc;
+            }
+            else if (ploc->leftChild == loc)
+            {
+                ploc->leftChild = loc->rightChild;
+                delete loc;
+            }
+            else
+            {
+                ploc->rightChild = loc->rightChild;
+                delete loc;
+            }
+        }
+        // NODE HAVING TWO CHILDREN
+        else
+        {
+            BST_Node *ploc1 = loc;
+            BST_Node *loc1 = loc->leftChild;
+            while (loc1->rightChild != nullptr)
+            {
+                ploc1 = loc1;
+                loc1 = loc1->rightChild;
+            }
+            if (loc->leftChild == loc1)
+            {
+                loc->leftChild = loc1->leftChild;
+            }
+            else if (loc1->leftChild != nullptr)
+            {
+                ploc1->rightChild = loc1->leftChild;
+            }
+            else
+            {
+                ploc1->rightChild = nullptr;
+            }
+            loc1->leftChild = loc->leftChild;
+            loc1->rightChild = loc->rightChild;
+            if (ploc->rightChild == loc)
+            {
+                ploc->rightChild = loc1;
+            }
+            else
+            {
+                ploc->leftChild = loc1;
+            }
+            delete loc;
+        }
+        loc = nullptr;
+        ploc = nullptr;
     }
 };
 
 int main()
 {
     BST b;
-    b.insert(5);
+    b.insert(3);
+    b.insert(-1);
+    b.insert(1);
+    b.insert(-2);
+    b.insert(0);
     b.insert(2);
-    b.insert(16);
-    b.insert(9);
-    b.insert(20);
-    b.insert(8);
-    b.insert(12);
-    b.insert(10);
-    b.insert(14);
-    b.insert(13);
+    // b.insert(12);
+    // b.insert(10);
+    // b.insert(14);
+    // b.insert(13);
 
     b.preOrderTraversal(b.root);
-    b.deleteNode(16);
+    b.deleteNode(3);
+    cout << "AFTER DELETATION : " << endl;
+    b.preOrderTraversal(b.root);
+    b.deleteNode(1);
     cout << "AFTER DELETATION : " << endl;
     b.preOrderTraversal(b.root);
     // cout << endl;
