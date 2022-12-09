@@ -248,17 +248,14 @@ public:
             if (ploc == nullptr)
             {
                 root = nullptr;
-                delete loc;
             }
             else if (ploc->leftChild == loc)
             {
                 ploc->leftChild = nullptr;
-                delete loc;
             }
             else
             {
                 ploc->rightChild = nullptr;
-                delete loc;
             }
         }
         // NODE WITH ONLY ONE NODE
@@ -269,17 +266,14 @@ public:
             if (ploc == nullptr)
             {
                 root = loc->leftChild;
-                delete loc;
             }
             else if (ploc->leftChild == loc)
             {
                 ploc->leftChild = loc->leftChild;
-                delete loc;
             }
             else
             {
                 ploc->rightChild = loc->leftChild;
-                delete loc;
             }
         }
         // NODE HAVING RIGHT NODE
@@ -288,33 +282,33 @@ public:
             if (ploc == nullptr)
             {
                 root = loc->rightChild;
-                delete loc;
             }
             else if (ploc->leftChild == loc)
             {
                 ploc->leftChild = loc->rightChild;
-                delete loc;
             }
             else
             {
                 ploc->rightChild = loc->rightChild;
-                delete loc;
             }
         }
         // NODE HAVING TWO CHILDREN
         else
         {
-            BST_Node *ploc1 = loc;
-            BST_Node *loc1 = loc->leftChild;
+            BST_Node *ploc1 = loc;           // ploc1 will have the parent of leftsub tree's maximum value
+            BST_Node *loc1 = loc->leftChild; // loc1 will have the leftsub tree's maximum value
+            // PICKING THE MAXIMUM VALUE FROM LEFTSUB TREE
             while (loc1->rightChild != nullptr)
             {
                 ploc1 = loc1;
                 loc1 = loc1->rightChild;
             }
+            // MAXIMUM VALUE NODE IS THE LEFT NODE
             if (loc->leftChild == loc1)
             {
                 loc->leftChild = loc1->leftChild;
             }
+            // NODE TO BE SWAPPED HAS ONE LEFT CHILD
             else if (loc1->leftChild != nullptr)
             {
                 ploc1->rightChild = loc1->leftChild;
@@ -325,7 +319,13 @@ public:
             }
             loc1->leftChild = loc->leftChild;
             loc1->rightChild = loc->rightChild;
-            if (ploc->rightChild == loc)
+            // IF THE NODE TO BE DELETED IS ROOT NODE
+            if (ploc == nullptr)
+            {
+                root = loc1;
+            }
+
+            else if (ploc->rightChild == loc)
             {
                 ploc->rightChild = loc1;
             }
@@ -333,8 +333,9 @@ public:
             {
                 ploc->leftChild = loc1;
             }
-            delete loc;
         }
+        delete loc;
+
         loc = nullptr;
         ploc = nullptr;
     }
@@ -343,22 +344,19 @@ public:
 int main()
 {
     BST b;
+    b.insert(15);
+    b.insert(16);
+    b.insert(4);
     b.insert(3);
-    b.insert(-1);
-    b.insert(1);
-    b.insert(-2);
-    b.insert(0);
-    b.insert(2);
-    // b.insert(12);
-    // b.insert(10);
-    // b.insert(14);
-    // b.insert(13);
+    b.insert(6);
+    b.insert(5);
+    b.insert(14);
+    b.insert(13);
+    b.insert(12);
+    b.insert(11);
 
     b.preOrderTraversal(b.root);
-    b.deleteNode(3);
-    cout << "AFTER DELETATION : " << endl;
-    b.preOrderTraversal(b.root);
-    b.deleteNode(1);
+    b.deleteNode(15);
     cout << "AFTER DELETATION : " << endl;
     b.preOrderTraversal(b.root);
     // cout << endl;
